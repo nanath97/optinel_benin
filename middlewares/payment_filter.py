@@ -76,10 +76,6 @@ async def send_nonvip_second_reply_after_delay(bot, chat_id: int, user_id: int, 
 def reset_free_quota(user_id: int):
     free_msgs_state.pop(user_id, None)
 
-# ===== NEW: Anti-spam d'avertissement pour médias non-VIP =====
-_last_media_warn = {}         # user_id -> timestamp du dernier avertissement
-_MEDIA_WARN_COOLDOWN = 30     # secondes entre deux avertissements au même user
-
 
 class PaymentFilterMiddleware(BaseMiddleware):
     def __init__(self, authorized_users):
@@ -109,30 +105,6 @@ class PaymentFilterMiddleware(BaseMiddleware):
                     await message.answer("🚫 Tu as été banni, tu ne peux plus envoyer de messages.")
                 except Exception as e:
                     print(f"Erreur envoi message banni : {e}")
-                raise CancelHandler()
-
-        # ===== NEW: Garde-fou médias pour NON-VIP =====
-        # Si NON-VIP et message ≠ TEXTE → on supprime, on avertit, et on NE consomme PAS le quota.
-        if message.content_type != types.ContentType.TEXT:
-            if user_id not in self.authorized_users:
-                try:
-                    await message.delete()
-                except Exception as e:
-                    print(f"[MEDIA BLOCK] Erreur suppression: {e}")
-
-                last = _last_media_warn.get(user_id, 0)
-                if now - last > _MEDIA_WARN_COOLDOWN:
-                    _last_media_warn[user_id] = now
-                    kb = InlineKeyboardMarkup().add(
-                        InlineKeyboardButton("💎 Deviens VIP", url=VIP_URL)
-                    )
-                    await message.bot.send_message(
-                        chat_id=message.chat.id,
-                        text=("⚠️ L’envoi d’images/vidéos/documents est réservé aux membres VIP.\n"
-                              "Tu peux écrire 5 messages texte gratuitement, puis passer en VIP pour tout débloquer."),
-                        reply_markup=kb
-                    )
-                # Stopper ici : aucun handler en aval, aucun décrément du quota
                 raise CancelHandler()
 
             # Si VIP et message ≠ texte → laisser continuer les handlers médias
