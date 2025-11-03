@@ -1,0 +1,7 @@
+fastapi
+aiogram==2.22.1
+gunicorn
+uvicorn
+python-dotenv
+requests
+stripe
