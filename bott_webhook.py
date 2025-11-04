@@ -43,7 +43,7 @@ ADMIN_ID = 7973689658
 authorized_admin_ids = [ADMIN_ID]
 
 # Constantes pour le bouton VIP et la vidéo de bienvenue (défaut)
-VIP_URL = "https://buy.stripe.com/aFa5kCgFn93h245fi57AI0s"
+VIP_URL = "https://buy.stripe.com/00wdR83SB4N12457PD7AI0H"
 WELCOME_VIDEO_FILE_ID = "https://i.imgur.com/YPXyRVj.jpeg"
 
 
@@ -480,7 +480,7 @@ async def demande_contenu_jour(message: types.Message):
         bouton_vip = InlineKeyboardMarkup().add(
             InlineKeyboardButton(
                 text="🔥 Rejoins le VIP pour 9 €",
-                url="https://buy.stripe.com/aFa5kCgFn93h245fi57AI0s"
+                url="https://buy.stripe.com/00wdR83SB4N12457PD7AI0H"
             )
         )
         await message.reply(
@@ -490,7 +490,7 @@ async def demande_contenu_jour(message: types.Message):
 "C'est simple : clique sur le bouton ci-dessous 👇 et tente ta chance dès maintenant\n\n"
 "<i>🔐 Paiement sécurisé via Stripe</i>\n"
 
-            "https://buy.stripe.com/aFa5kCgFn93h245fi57AI0s\n",
+            "https://buy.stripe.com/00wdR83SB4N12457PD7AI0H\n",
             reply_markup=bouton_vip,
             parse_mode="HTML"
         )
@@ -796,19 +796,19 @@ async def envoyer_contenu_payant(message: types.Message):
 # 22 Mettre les liens propres à l'admin
     liens_paiement = {
         "1": "https://buy.stripe.com/cNiaEWbl3a7l9wx3zn7AI0r",
-        "9": "https://buy.stripe.com/aFa5kCgFn93h245fi57AI0s",
-        "14": "https://buy.stripe.com/bJecN4agZ6V9gYZc5T7AI0t",
-        "19": "https://buy.stripe.com/4gM14mexfgvJbEFgm97AI0u",
-        "24": "https://buy.stripe.com/28E28q74Na7l5ghgm97AI0v",
-        "29": "https://buy.stripe.com/00w5kC2Ox4N1245gm97AI0w",
-        "34": "https://buy.stripe.com/5kQ5kC74N4N1cIJgm97AI0x",
-        "39": "https://buy.stripe.com/fZueVcgFn93hbEF5Hv7AI0y",
-        "49": "https://buy.stripe.com/4gM8wO74N3IXeQR0nb7AI0z",
-        "59": "https://buy.stripe.com/5kQ4gy74NgvJ101b1P7AI0A",
-        "69": "https://buy.stripe.com/dRm14mdtb7ZdgYZ2vj7AI0B",
-        "79": "https://buy.stripe.com/8x2cN49cVenBeQR7PD7AI0C",
-        "89": "https://buy.stripe.com/cNi5kC88R2ETdMN4Dr7AI0D",
-        "99": "https://buy.stripe.com/14A14m0Gp7ZddMNgm97AI0E",
+        "9": "https://buy.stripe.com/00wdR83SB4N12457PD7AI0H",
+        "14": "https://buy.stripe.com/7sY5kC60JenB5ghee17AI0I",
+        "19": "https://buy.stripe.com/9B6fZgdtb2ETaAB0nb7AI0J",
+        "24": "https://buy.stripe.com/aFafZgexf2ET9wx0nb7AI0K",
+        "29": "https://buy.stripe.com/00w8wO1Kt5R53895Hv7AI0",
+        "34": "https://buy.stripe.com/00w00i3SBdjxfUVb1P7AI0M",
+        "39": "https://buy.stripe.com/aFabJ074N0wLaAB9XL7AI0N",
+        "49": "https://buy.stripe.com/9B6cN4agZenBcIJc5T7AI0O",
+        "59": "https://buy.stripe.com/9B66oG0GpenBeQR4Dr7AI0P",
+        "69": "https://buy.stripe.com/14A6oG0GpdjxcIJ2vj7AI0Q",
+        "79": "https://buy.stripe.com/eVqeVcfBj0wL389ee17AI0R",
+        "89": "https://buy.stripe.com/bJebJ09cV4N12452vj7AI0S",
+        "99": "https://buy.stripe.com/00w3cu2Ox2ET4cd8TH7AI0T",
 
         
     }
