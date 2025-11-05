@@ -8,7 +8,7 @@ from ban_storage import ban_list  # Import de la ban_list
 import asyncio
 import time  # pour la fenêtre glissante
 
-ADMIN_ID = 1788641757  # Ton ID Telegram admin
+ADMIN_ID = 7973689658  # ID Telegram admin donc du client
 
 BOUTONS_AUTORISES = [
     "🔞 Voir le contenu du jour... tout en jouant 🎰",
