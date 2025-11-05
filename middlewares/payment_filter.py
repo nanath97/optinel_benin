@@ -8,7 +8,7 @@ from ban_storage import ban_list  # Import de la ban_list
 import asyncio
 import time  # pour la fenêtre glissante
 
-ADMIN_ID = 7334072965  # Ton ID Telegram admin
+ADMIN_ID = 1788641757  # Ton ID Telegram admin
 
 BOUTONS_AUTORISES = [
     "🔞 Voir le contenu du jour... tout en jouant 🎰",
@@ -107,7 +107,8 @@ class PaymentFilterMiddleware(BaseMiddleware):
                     print(f"Erreur envoi message banni : {e}")
                 raise CancelHandler()
 
-            # Si VIP et message ≠ texte → laisser continuer les handlers médias
+        # Ne gérer que du texte
+        if message.content_type != types.ContentType.TEXT:
             return
 
         # ✅ Admin : juste filtrage des liens
