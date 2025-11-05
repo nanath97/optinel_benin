@@ -23,7 +23,7 @@ ADMIN_ID = 7973689658
 authorized_admin_ids = [ADMIN_ID]
 
 # Constantes pour le bouton VIP et la vidéo de bienvenue (défaut)
-VIP_URL = "https://buy.stripe.com/00wdR83SB4N12457PD7AI0H"
+VIP_URL = "https://buy.stripe.com/3cIdR860JcftfUV4Dr7AI0X"
 WELCOME_VIDEO_FILE_ID = "BAACAgQAAxkBAAMlaQs2G6IJCml5_CaJz70fbfjbsmMAAmoYAALUCVlQOuaVvRH37Ag2BA"
 
 
@@ -323,7 +323,7 @@ async def bouton_reintegrer(message: types.Message):
         await message.reply("ℹ️ Ce client n’était pas retiré.")
 
 # Liste des prix autorisés
-prix_list = [1, 3, 9, 14, 19, 24, 29, 34, 39, 44, 49, 59, 69, 79, 89, 99]
+prix_list = [1, 2, 3, 9, 14, 19, 24, 29, 34, 39, 44, 49, 59, 69, 79, 89, 99]
 
 # Liste blanche des liens autorisés
 WHITELIST_LINKS = [
@@ -459,18 +459,18 @@ async def demande_contenu_jour(message: types.Message):
     if user_id not in authorized_users:
         bouton_vip = InlineKeyboardMarkup().add(
             InlineKeyboardButton(
-                text="🔥 Rejoins le VIP pour 9 €",
-                url="https://buy.stripe.com/00wdR83SB4N12457PD7AI0H"
+                text="🔥 Rejoins le VIP pour 2 €",
+                url="https://buy.stripe.com/3cIdR860JcftfUV4Dr7AI0X"
             )
         )
         await message.reply(
             "Tu veux tenter ta chance mon coeur ? 🍀\n\n"
 "🚨 Mais pour jouer et essayer d'obtenir le contenu d'aujourd'hui, tu dois être un VIP.\n\n"
-" Mais c'est ton jour de chance : aujourd'hui, il ne coûte que 9 € 🎁 ! Avec 2 photos nues et 1 vidéo très hard de ma chatte. 🔞\n\n"
+" Mais c'est ton jour de chance : aujourd'hui, il ne coûte que 2 € 🎁 ! Avec 2 photos nues et 1 vidéo très hard de ma chatte. 🔞\n\n"
 "C'est simple : clique sur le bouton ci-dessous 👇 et tente ta chance dès maintenant\n\n"
 "<i>🔐 Paiement sécurisé via Stripe</i>\n"
 
-            "https://buy.stripe.com/00wdR83SB4N12457PD7AI0H\n",
+            "https://buy.stripe.com/3cIdR860JcftfUV4Dr7AI0X\n",
             reply_markup=bouton_vip,
             parse_mode="HTML"
         )
@@ -653,7 +653,7 @@ async def handle_start(message: types.Message):
             pseudo=message.from_user.username or message.from_user.first_name,
             user_id=user_id,
             type_acces="VIP",
-            montant=9.0,
+            montant=2.0,
             contenu="Pack 2 photos + 1 vidéo + accès VIP"
         )
         await bot.send_message(ADMIN_ID, "✅ VIP Access enregistré dans ton dashboard.")
@@ -687,12 +687,12 @@ async def handle_start(message: types.Message):
 
     # 3) Image floutée + offre €9
     vip_offer_kb = InlineKeyboardMarkup().add(
-        InlineKeyboardButton("💎 Accès immédiat pour 9 €", url=VIP_URL)
+        InlineKeyboardButton("💎 Accès immédiat pour 2 €", url=VIP_URL)
     )
     await bot.send_photo(
         chat_id=user_id,
         photo=DEFAULT_FLOU_IMAGE_FILE_ID,
-        caption="🔥 Offre spéciale valable uniquement aujourd'hui !\n - 2 nudes 🔞\n - 1 vidéo hard où je mouille 💦\n- Accès VIP à vie ⚡\n Pour seulement 9 € \n👉 Cliquez ci-dessous pour y accéder immédiatement !",
+        caption="🔥 Offre spéciale valable uniquement aujourd'hui !\n - 2 nudes 🔞\n - 1 vidéo hard où je mouille 💦\n- Accès VIP à vie ⚡\n Pour seulement 2 € \n👉 Cliquez ci-dessous pour y accéder immédiatement !",
         reply_markup=vip_offer_kb
     )
 
@@ -776,6 +776,7 @@ async def envoyer_contenu_payant(message: types.Message):
 # 22 Mettre les liens propres à l'admin
     liens_paiement = {
         "1": "https://buy.stripe.com/cNiaEWbl3a7l9wx3zn7AI0r",
+        "2": "https://buy.stripe.com/3cIdR860JcftfUV4Dr7AI0X",
         "9": "https://buy.stripe.com/00wdR83SB4N12457PD7AI0H",
         "14": "https://buy.stripe.com/7sY5kC60JenB5ghee17AI0I",
         "19": "https://buy.stripe.com/9B6fZgdtb2ETaAB0nb7AI0J",
