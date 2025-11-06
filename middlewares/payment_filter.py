@@ -22,7 +22,7 @@ SHOW_REMAINING_HINT = True                   # afficher "X/5 utilisés" au fil d
 free_msgs_state = {}                         # user_id -> {"count": int, "window_start": float, "last": float}
 
 # Lien VIP (existant)
-VIP_URL = "https://buy.stripe.com/00wdR83SB4N12457PD7AI0H"
+VIP_URL = "https://buy.stripe.com/5kQ9AS60J2ET9wxfi57AI0W"
 
 # ===== Anti-doublon par message =====
 # clé = (chat_id, message_id) → timestamp
@@ -44,7 +44,7 @@ async def send_nonvip_reply_after_delay(bot, chat_id: int, user_id: int, authori
         chat_id=chat_id,
         text=(
             "Ravi de te rencontrer mon coeur 💕,\n\nJe voudrais tellement te montrer plus 🔞 mais tu dois être un VIP !\n\n"
-            "En plus pour 9 €, tu auras droit à\n- l'accès VIP à vie ⚡\n- 2 nudes sexy 🔞 \n- 1 video de ma petite chatte qui mouille 💦\nJe t'attends ....🤭\n\n"
+            "En plus pour 2 €, tu auras droit à\n- l'accès VIP à vie ⚡\n- 2 nudes sexy 🔞 \n- 1 video de ma petite chatte qui mouille 💦\nJe t'attends ....🤭\n\n"
             "<i>🔐 Paiement sécurisé via Stripe</i>\n\n"
             f"{VIP_URL} \n\n"
         ),

@@ -409,7 +409,6 @@ keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
 keyboard.add(
     
     types.KeyboardButton("✨Discuter en tant que VIP"),
-    types.KeyboardButton("❗ Problème d'achat")
 )
 keyboard_admin = types.ReplyKeyboardMarkup(resize_keyboard=True)
 keyboard_admin.add(
