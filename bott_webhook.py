@@ -594,7 +594,7 @@ async def handle_start(message: types.Message):
 
     # 2) Vidéo de présentation + bouton VIP
     vip_kb = InlineKeyboardMarkup().add(
-        InlineKeyboardButton("💎 Deviens un VIP", url=VIP_URL)
+        InlineKeyboardButton("💎 Débloque la suite", url=VIP_URL)
     )
     await bot.send_video(
         chat_id=user_id,
@@ -978,10 +978,15 @@ STAFF_GROUP_ID = int(os.getenv("STAFF_GROUP_ID", "0"))
     content_types=types.ContentType.ANY
 )
 async def relay_from_client(message: types.Message):
+    """
+    Tous les clients (VIP ou non) sont transférés dans un topic dédié
+    dans le STAFF_GROUP. Le statut VIP sert uniquement aux stats / envois groupés.
+    """
     user_id = message.from_user.id
 
     print(f"[RELAY] message from {user_id} (chat {message.chat.id}), authorized={user_id in authorized_users}")
 
+    # 1) Vérifier la ban_list
     for admin_id, clients_bannis in ban_list.items():
         if user_id in clients_bannis:
             try:
@@ -989,25 +994,15 @@ async def relay_from_client(message: types.Message):
             except Exception:
                 pass
             try:
-                await bot.send_message(user_id, "🚫 You have been banned. You can no longer send messages.")
+                await bot.send_message(
+                    user_id,
+                    "🚫 Tu as été banni, tu ne peux plus envoyer de messages."
+                )
             except Exception:
                 pass
             return
 
-    if user_id not in authorized_users:
-        try:
-            # Forward to STAFF_GROUP so any admin can pick up
-            sent_msg = await bot.forward_message(
-                chat_id=STAFF_GROUP_ID,
-                from_chat_id=message.chat.id,
-                message_id=message.message_id
-            )
-            pending_replies[(STAFF_GROUP_ID, sent_msg.message_id)] = message.chat.id
-            print(f"✅ Message NON-VIP reçu de {message.chat.id} et transféré au staff (msg {sent_msg.message_id})")
-        except Exception as e:
-            print(f"❌ Erreur transfert message client NON-VIP : {e}")
-        return
-
+    # 2) Création / récupération du topic dédié pour ce client
     try:
         from vip_topics import ensure_topic_for_vip
 
@@ -1027,9 +1022,9 @@ async def relay_from_client(message: types.Message):
         if sent_msg_id:
             pending_replies[(STAFF_GROUP_ID, sent_msg_id)] = message.chat.id
 
-        print(f"✅ Message VIP reçu de {message.chat.id} et transféré dans le topic {topic_id}")
+        print(f"✅ Message client reçu de {message.chat.id} et transféré dans le topic {topic_id}")
     except Exception as e:
-        print(f"❌ Erreur transfert message VIP vers topic : {e}")
+        print(f"❌ Erreur transfert message client vers topic : {e}")
 
 
 # 1. code pour le bouton prendre en charge début

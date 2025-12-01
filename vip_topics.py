@@ -114,15 +114,16 @@ def load_vip_topics_from_disk():
 
 async def ensure_topic_for_vip(user: types.User) -> int:
     """
-    Vérifie / crée le topic VIP pour un utilisateur.
+    Vérifie / crée le topic pour un utilisateur.
     - Si déjà en mémoire → renvoie le topic existant.
     - Sinon → crée un topic, un panneau de contrôle,
-      sauvegarde en JSON + enregistre le Topic ID dans Airtable.
+      sauvegarde en JSON.
+    - La synchro Airtable du Topic ID ne se fait QUE si l'user est VIP (dans authorized_users).
     """
     user_id = user.id
     print(f"[VIP_TOPICS] ensure_topic_for_vip() appelé pour user_id={user_id}")
 
-    # Topic déjà existant pour ce VIP en mémoire
+    # Topic déjà existant pour ce user en mémoire
     if user_id in _user_topics:
         topic_id = _user_topics[user_id].get("topic_id")
         print(f"[VIP_TOPICS] Topic déjà connu pour {user_id} -> {topic_id}")
@@ -193,6 +194,14 @@ async def ensure_topic_for_vip(user: types.User) -> int:
     # Sauvegarde JSON
     save_vip_topics()
 
+    # ⚠️ IMPORTANT :
+    # - TOUS les clients ont un topic (VIP ou non)
+    # - MAIS on ne synchronise le Topic ID dans Airtable QUE pour les vrais VIP (payeurs),
+    #   identifiés par authorized_users.
+    if user_id not in authorized_users:
+        print(f"[VIP_TOPICS] User {user_id} non VIP : topic {topic_id} créé en local (pas de sync Airtable).")
+        return topic_id
+
     # ===== Enregistrement / mise à jour du Topic ID dans le Airtable principal =====
     try:
         if AIRTABLE_API_KEY and BASE_ID and TABLE_NAME:
@@ -247,7 +256,11 @@ async def ensure_topic_for_vip(user: types.User) -> int:
 
 
 def is_vip(user_id: int) -> bool:
-    return user_id in _user_topics
+    """
+    VIP = client PAYEUR → présent dans authorized_users.
+    (Les topics existent aussi pour les non-VIP, donc on ne se base plus sur _user_topics.)
+    """
+    return user_id in authorized_users
 
 
 def get_user_id_by_topic_id(topic_id: int):
